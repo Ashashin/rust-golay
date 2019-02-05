@@ -1,12 +1,13 @@
 extern crate rust_golay;
 
-use rust_golay::syndrome::gen_encoding_table;
+use rust_golay::syndrome::EncodingTable;
 
 fn main() {
     println!("Hello, world!");
     println!("Generating encoding table...");
     
-    let encoding_table: [u32; 4096] = gen_encoding_table();
+    let mut encoding_table = EncodingTable::new();
+    encoding_table.gen_encoding_table();
     
     println!("Done.");
     println!("Testing.");
@@ -16,6 +17,6 @@ fn main() {
     println!("Data: {:032b}", data);
 
     // Codeword is 23 bits long
-    let codeword = encoding_table[data as usize];
+    let codeword = encoding_table.get_codeword(data);
     println!("Codeword: {:032b}", codeword);
 }
